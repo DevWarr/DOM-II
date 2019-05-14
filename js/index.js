@@ -259,7 +259,7 @@ document.addEventListener("keydown", event => {
 })
 
 
-//========================MOUSEENTER========================//
+//========================MOUSEOVER========================//
 // IF, and only if, the user hovers the pointer over the body of the page and presses "B",
 // We will navigate back to the index.html page
 index.introAll.addEventListener("mouseenter", event => {
