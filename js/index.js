@@ -47,7 +47,7 @@ const index = {
         links: document.querySelectorAll('.nav-link')
     },
     get navAll() {
-        return document.querySelector('.nav-container');
+        return document.querySelector('.main-navigation');
     },
 
     // The header and elements inside 
@@ -160,6 +160,15 @@ index['section1'].imgContainer.addEventListener('mouseenter', event => {
 })
 
 
+//========================MOUSEENTER========================//
+// Testing propagation... but no dice.
+// I think propagation doesn't work with console.log().
+index['section1All'].addEventListener('mouseenter', event => {
+    event.stopPropagation();
+    console.log(`Did we stop boss?`);
+})
+
+
 
 //========================CLICK========================//
 // When clicking the image of section 1,
@@ -181,7 +190,7 @@ index.intro.img.addEventListener('mousedown', event => {
     space = true;
     console.log(`ye got dark mode boss`);
     event.preventDefault();
-    darkMode([index.all, index.introAll, ...Array.from(index.nav.links), index.footerAll, index.footerText])
+    darkMode([index.all, index.navAll, ...Array.from(index.nav.links), index.footerAll, index.footerText])
 })
 // Reset the space variable if mouse goes up ANYWHERE on the page.
 document.addEventListener('mouseup', event => {
@@ -195,7 +204,7 @@ document.addEventListener('mouseup', event => {
 index.intro.img.addEventListener('mouseup', event => {
     console.log(`ye got light mode boss`);
     event.preventDefault();
-    lightMode([index.all, index.introAll, ...Array.from(index.nav.links), index.footerAll, index.footerText])
+    lightMode([index.all, index.navAll, ...Array.from(index.nav.links), index.footerAll, index.footerText])
 })
 
 //========================DBLCLICK========================//
@@ -207,6 +216,15 @@ index.destinationTexts.forEach(element => {
         element.style.color = "purple";
     })
 })
+
+//========================DBLCLICK========================//
+// stop Propagation! THANKS to Tyler for giving a solid example.
+index.destinationTexts[2].addEventListener('dblclick', event => {
+    event.stopPropagation();
+    console.log(`ye got ye favourite colo' boss`)
+    index.destinationTexts[2].style.color = "yellow";
+})
+
 
 
 //========================DRAGSTART========================//
@@ -258,14 +276,9 @@ document.addEventListener("keydown", event => {
 
 
 
-//========================MOUSEOVER========================//
-// IF, and only if, the user hovers the pointer over the body of the page and presses "B",
-// We will navigate back to the index.html page
-index.introAll.addEventListener("mouseenter", event => {
-    event.stopPropagation();
-    console.log(`Reading clear boss`);
-    if (window.location.href == "reveal.html") {
-        console.log(`Ready to warp boss`);
-        bKey = true;
-    }
+//========================LOAD========================//
+// On page load,
+// we have an alert!
+window.addEventListener("load", event => {
+    alert("We got the home page loaded boss");
 })
