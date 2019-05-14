@@ -146,119 +146,116 @@ function imgMove(element, interval = 25) {
 
 //========================EVENTS========================//
 
-if (window.location.href == "index.html") {
-
-    //========================MOUSEENTER========================//
-    // When mousing over the image of section 1,
-    // The image will move.
-    index['section1'].imgContainer.addEventListener('mouseenter', event => {
-        if (!index['section1'].img.classList.contains("animate")) {
-            event.stopPropagation();
-            console.log(`we doin' it boss`);
-            event.preventDefault();
-            event.stopPropagation();
-            imgMove(index['section1'].img);
-        }
-    })
-
-
-
-    //========================CLICK========================//
-    // When clicking the image of section 1,
-    // The image will move.
-    index['section2'].imgContainer.addEventListener('click', event => {
-        if (!index['section2'].img.classList.contains("animate")) {
-            console.log(`we doin' it boss`);
-            event.preventDefault();
-            event.stopPropagation();
-            imgMove(index['section2'].img);
-        }
-    })
-
-    let space = false
-    //========================MOUSEDOWN========================//
-    // If the mousebutton is pushed down on the intro image, 
-    // we activate dark mode.
-    index.intro.img.addEventListener('mousedown', event => {
-        space = true;
-        console.log(`ye got dark mode boss`);
+//========================MOUSEENTER========================//
+// When mousing over the image of section 1,
+// The image will move.
+index['section1'].imgContainer.addEventListener('mouseenter', event => {
+    if (!index['section1'].img.classList.contains("animate")) {
+        event.stopPropagation();
+        console.log(`we doin' it boss`);
         event.preventDefault();
-        darkMode([index.all, index.introAll, ...Array.from(index.nav.links), index.footerAll, index.footerText])
-    })
-    // Reset the space variable if mouse goes up ANYWHERE on the page.
-    document.addEventListener('mouseup', event => {
-        space = false;
-    })
+        event.stopPropagation();
+        imgMove(index['section1'].img);
+    }
+})
 
 
-    //========================MOUSEUP========================//
-    // If the mousebutton is released on the intro image, 
-    // we activate light mode.
-    index.intro.img.addEventListener('mouseup', event => {
-        console.log(`ye got light mode boss`);
+
+//========================CLICK========================//
+// When clicking the image of section 1,
+// The image will move.
+index['section2'].imgContainer.addEventListener('click', event => {
+    if (!index['section2'].img.classList.contains("animate")) {
+        console.log(`we doin' it boss`);
         event.preventDefault();
-        lightMode([index.all, index.introAll, ...Array.from(index.nav.links), index.footerAll, index.footerText])
+        event.stopPropagation();
+        imgMove(index['section2'].img);
+    }
+})
+
+let space = false
+//========================MOUSEDOWN========================//
+// If the mousebutton is pushed down on the intro image, 
+// we activate dark mode.
+index.intro.img.addEventListener('mousedown', event => {
+    space = true;
+    console.log(`ye got dark mode boss`);
+    event.preventDefault();
+    darkMode([index.all, index.introAll, ...Array.from(index.nav.links), index.footerAll, index.footerText])
+})
+// Reset the space variable if mouse goes up ANYWHERE on the page.
+document.addEventListener('mouseup', event => {
+    space = false;
+})
+
+
+//========================MOUSEUP========================//
+// If the mousebutton is released on the intro image, 
+// we activate light mode.
+index.intro.img.addEventListener('mouseup', event => {
+    console.log(`ye got light mode boss`);
+    event.preventDefault();
+    lightMode([index.all, index.introAll, ...Array.from(index.nav.links), index.footerAll, index.footerText])
+})
+
+//========================DBLCLICK========================//
+// If we double click on any destination text,
+// The text will become purple.
+index.destinationTexts.forEach(element => {
+    element.addEventListener('dblclick', event => {
+        console.log(`ye got ye favourite colo' boss`)
+        element.style.color = "purple";
     })
-
-    //========================DBLCLICK========================//
-    // If we double click on any destination text,
-    // The text will become purple.
-    index.destinationTexts.forEach(element => {
-        element.addEventListener('dblclick', event => {
-            console.log(`ye got ye favourite colo' boss`)
-            element.style.color = "purple";
-        })
-    })
+})
 
 
-    //========================DRAGSTART========================//
-    // If we drag ANYTHING in the document, 
-    // The initial document text/image will become slightly transparent.
-    index.all.addEventListener("dragstart", event => {
-        console.log(`we draggin' it boss`)
-        event.target.style.opacity = 0.5
-    })
+//========================DRAGSTART========================//
+// If we drag ANYTHING in the document, 
+// The initial document text/image will become slightly transparent.
+index.all.addEventListener("dragstart", event => {
+    console.log(`we draggin' it boss`)
+    event.target.style.opacity = 0.5
+})
 
 
-    //========================DRAGEND========================//
-    // If we drag ANYTHING in the document, 
-    // The initial document text/image will become slightly transparent.
-    index.all.addEventListener("dragend", event => {
-        console.log(`we dun draggin' boss`)
-        event.target.style.opacity = "";
-    })
+//========================DRAGEND========================//
+// If we drag ANYTHING in the document, 
+// The initial document text/image will become slightly transparent.
+index.all.addEventListener("dragend", event => {
+    console.log(`we dun draggin' boss`)
+    event.target.style.opacity = "";
+})
 
 
-    let scroll;
-    //========================SCROLL========================//
-    // Whenscrolling through the webpage,
-    // The text will become transparent.
-    window.addEventListener("scroll", event => {
-        clearTimeout(scroll)
-        index.all.style.opacity = 0.6;
+let scroll;
+//========================SCROLL========================//
+// Whenscrolling through the webpage,
+// The text will become transparent.
+window.addEventListener("scroll", event => {
+    clearTimeout(scroll)
+    index.all.style.opacity = 0.6;
 
-        // Here, we're setting a time out.
-        // After a set time, this function will run and the opacity will be reset.
-        // HOWEVER, because the timeout keeps being cleared above, it isn't until we 
-        // STOP scrolling that this function will actually run!
-        scroll = setTimeout(function () {
-            console.log(`we dun scrolled boss`);
-            index.all.style.opacity = "";
-        }, 66)
-    })
+    // Here, we're setting a time out.
+    // After a set time, this function will run and the opacity will be reset.
+    // HOWEVER, because the timeout keeps being cleared above, it isn't until we 
+    // STOP scrolling that this function will actually run!
+    scroll = setTimeout(function () {
+        console.log(`we dun scrolled boss`);
+        index.all.style.opacity = "";
+    }, 66)
+})
 
 
 
-    //========================KEYDOWN========================//
-    // IF, and only if, the user holds down the mouseclick on the fun bus and presses space,
-    // We will navigate to reveal.html
-    document.addEventListener("keydown", event => {
-        if (event.key == " " && space) {
-            window.location.href = "reveal.html"
-        }
-    })
+//========================KEYDOWN========================//
+// IF, and only if, the user holds down the mouseclick on the fun bus and presses space,
+// We will navigate to reveal.html
+document.addEventListener("keydown", event => {
+    if (event.key == " " && space) {
+        window.location.href = "reveal.html"
+    }
+})
 
-}
 
 
 //========================MOUSEOVER========================//
