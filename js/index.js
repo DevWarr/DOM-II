@@ -143,7 +143,6 @@ function imgMove(element, interval = 25) {
 
 
 
-
 //========================EVENTS========================//
 
 //========================MOUSEENTER========================//
@@ -282,3 +281,10 @@ document.addEventListener("keydown", event => {
 window.addEventListener("load", event => {
     alert("We got the home page loaded boss");
 })
+
+
+
+//========================PREVENTDEFAULTS========================//
+index.nav.links.forEach(element => element.addEventListener("click", event => {
+    event.preventDefault();
+}));
