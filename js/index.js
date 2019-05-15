@@ -143,148 +143,186 @@ function imgMove(element, interval = 25) {
 
 
 
-//========================EVENTS========================//
+// //========================EVENTS========================//
 
-//========================MOUSEENTER========================//
-// When mousing over the image of section 1,
-// The image will move.
-index['section1'].imgContainer.addEventListener('mouseenter', event => {
-    if (!index['section1'].img.classList.contains("animate")) {
-        event.stopPropagation();
-        console.log(`we doin' it boss`);
-        event.preventDefault();
-        event.stopPropagation();
-        imgMove(index['section1'].img);
-    }
+// //========================MOUSEENTER========================//
+// // When mousing over the image of section 1,
+// // The image will move.
+// index['section1'].imgContainer.addEventListener('mouseenter', event => {
+//     if (!index['section1'].img.classList.contains("animate")) {
+//         event.stopPropagation();
+//         console.log(`we doin' it boss`);
+//         event.preventDefault();
+//         event.stopPropagation();
+//         imgMove(index['section1'].img);
+//     }
+// })
+
+
+// //========================MOUSEENTER========================//
+// // Testing propagation... but no dice.
+// // I think propagation doesn't work with console.log().
+// index['section1All'].addEventListener('mouseenter', event => {
+//     event.stopPropagation();
+//     console.log(`Did we stop boss?`);
+// })
+
+
+
+// //========================CLICK========================//
+// // When clicking the image of section 1,
+// // The image will move.
+// index['section2'].imgContainer.addEventListener('click', event => {
+//     if (!index['section2'].img.classList.contains("animate")) {
+//         console.log(`we doin' it boss`);
+//         event.preventDefault();
+//         event.stopPropagation();
+//         imgMove(index['section2'].img);
+//     }
+// })
+
+// let space = false
+// //========================MOUSEDOWN========================//
+// // If the mousebutton is pushed down on the intro image, 
+// // we activate dark mode.
+// index.intro.img.addEventListener('mousedown', event => {
+//     space = true;
+//     console.log(`ye got dark mode boss`);
+//     event.preventDefault();
+//     darkMode([index.all, index.navAll, ...Array.from(index.nav.links), index.footerAll, index.footerText])
+// })
+// // Reset the space variable if mouse goes up ANYWHERE on the page.
+// document.addEventListener('mouseup', event => {
+//     space = false;
+// })
+
+
+// //========================MOUSEUP========================//
+// // If the mousebutton is released on the intro image, 
+// // we activate light mode.
+// index.intro.img.addEventListener('mouseup', event => {
+//     console.log(`ye got light mode boss`);
+//     event.preventDefault();
+//     lightMode([index.all, index.navAll, ...Array.from(index.nav.links), index.footerAll, index.footerText])
+// })
+
+// //========================DBLCLICK========================//
+// // If we double click on any destination text,
+// // The text will become purple.
+// index.destinationTexts.forEach(element => {
+//     element.addEventListener('dblclick', event => {
+//         console.log(`ye got ye favourite colo' boss`)
+//         element.style.color = "purple";
+//     })
+// })
+
+// //========================DBLCLICK========================//
+// // stop Propagation! THANKS to Tyler for giving a solid example.
+// index.destinationTexts[2].addEventListener('dblclick', event => {
+//     event.stopPropagation();
+//     console.log(`ye got ye favourite colo' boss`)
+//     index.destinationTexts[2].style.color = "yellow";
+// })
+
+
+
+// //========================DRAGSTART========================//
+// // If we drag ANYTHING in the document, 
+// // The initial document text/image will become slightly transparent.
+// index.all.addEventListener("dragstart", event => {
+//     console.log(`we draggin' it boss`)
+//     event.target.style.opacity = 0.5
+// })
+
+
+// //========================DRAGEND========================//
+// // If we drag ANYTHING in the document, 
+// // The initial document text/image will become slightly transparent.
+// index.all.addEventListener("dragend", event => {
+//     console.log(`we dun draggin' boss`)
+//     event.target.style.opacity = "";
+// })
+
+
+// let scroll;
+// //========================SCROLL========================//
+// // Whenscrolling through the webpage,
+// // The text will become transparent.
+// window.addEventListener("scroll", event => {
+//     clearTimeout(scroll)
+//     index.all.style.opacity = 0.6;
+
+//     // Here, we're setting a time out.
+//     // After a set time, this function will run and the opacity will be reset.
+//     // HOWEVER, because the timeout keeps being cleared above, it isn't until we 
+//     // STOP scrolling that this function will actually run!
+//     scroll = setTimeout(function () {
+//         console.log(`we dun scrolled boss`);
+//         index.all.style.opacity = "";
+//     }, 66)
+// })
+
+
+
+// //========================KEYDOWN========================//
+// // IF, and only if, the user holds down the mouseclick on the fun bus and presses space,
+// // We will navigate to reveal.html
+// document.addEventListener("keydown", event => {
+//     if (event.key == " " && space) {
+//         window.location.href = "reveal.html"
+//     }
+// })
+
+
+
+// //========================LOAD========================//
+// // On page load,
+// // we have an alert!
+// window.addEventListener("load", event => {
+//     alert("We got the home page loaded boss");
+// })
+
+
+
+// //========================PREVENTDEFAULTS========================//
+// index.nav.links.forEach(element => element.addEventListener("click", event => {
+//     event.preventDefault();
+// }));
+
+
+let shiftX, shiftY
+
+let dragged = document.querySelector('.img-content');
+
+dragged.addEventListener("dragstart", event => {
+    shiftX = event.clientX - dragged.getBoundingClientRect().left;
+    shiftY = event.clientY - dragged.getBoundingClientRect().top;
 })
 
-
-//========================MOUSEENTER========================//
-// Testing propagation... but no dice.
-// I think propagation doesn't work with console.log().
-index['section1All'].addEventListener('mouseenter', event => {
-    event.stopPropagation();
-    console.log(`Did we stop boss?`);
+dragged.addEventListener("dragend", event =>{
+    console.log(shiftX, shiftY);
+    dragged.style.position = "absolute";
+    dragged.style.left = event.clientX - shiftX + "px";
+    dragged.style.top = event.clientY - shiftY + "px";
+    console.log(event.clientY, event.clientX);
 })
 
+// let shiftX, shiftY
 
+// const dragged = document.querySelector('.img-content')
+// dragged.addEventListener('dragstart', dragStart);
+// dragged.addEventListener('dragend', dragDrop);
+// function dragStart() {
+//   shiftX = event.clientX - dragged.getBoundingClientRect().left;
+//   shiftY = event.clientY - dragged.getBoundingClientRect().top;
+//   console.log(`The image is dragged`)
+// }
 
-//========================CLICK========================//
-// When clicking the image of section 1,
-// The image will move.
-index['section2'].imgContainer.addEventListener('click', event => {
-    if (!index['section2'].img.classList.contains("animate")) {
-        console.log(`we doin' it boss`);
-        event.preventDefault();
-        event.stopPropagation();
-        imgMove(index['section2'].img);
-    }
-})
-
-let space = false
-//========================MOUSEDOWN========================//
-// If the mousebutton is pushed down on the intro image, 
-// we activate dark mode.
-index.intro.img.addEventListener('mousedown', event => {
-    space = true;
-    console.log(`ye got dark mode boss`);
-    event.preventDefault();
-    darkMode([index.all, index.navAll, ...Array.from(index.nav.links), index.footerAll, index.footerText])
-})
-// Reset the space variable if mouse goes up ANYWHERE on the page.
-document.addEventListener('mouseup', event => {
-    space = false;
-})
-
-
-//========================MOUSEUP========================//
-// If the mousebutton is released on the intro image, 
-// we activate light mode.
-index.intro.img.addEventListener('mouseup', event => {
-    console.log(`ye got light mode boss`);
-    event.preventDefault();
-    lightMode([index.all, index.navAll, ...Array.from(index.nav.links), index.footerAll, index.footerText])
-})
-
-//========================DBLCLICK========================//
-// If we double click on any destination text,
-// The text will become purple.
-index.destinationTexts.forEach(element => {
-    element.addEventListener('dblclick', event => {
-        console.log(`ye got ye favourite colo' boss`)
-        element.style.color = "purple";
-    })
-})
-
-//========================DBLCLICK========================//
-// stop Propagation! THANKS to Tyler for giving a solid example.
-index.destinationTexts[2].addEventListener('dblclick', event => {
-    event.stopPropagation();
-    console.log(`ye got ye favourite colo' boss`)
-    index.destinationTexts[2].style.color = "yellow";
-})
-
-
-
-//========================DRAGSTART========================//
-// If we drag ANYTHING in the document, 
-// The initial document text/image will become slightly transparent.
-index.all.addEventListener("dragstart", event => {
-    console.log(`we draggin' it boss`)
-    event.target.style.opacity = 0.5
-})
-
-
-//========================DRAGEND========================//
-// If we drag ANYTHING in the document, 
-// The initial document text/image will become slightly transparent.
-index.all.addEventListener("dragend", event => {
-    console.log(`we dun draggin' boss`)
-    event.target.style.opacity = "";
-})
-
-
-let scroll;
-//========================SCROLL========================//
-// Whenscrolling through the webpage,
-// The text will become transparent.
-window.addEventListener("scroll", event => {
-    clearTimeout(scroll)
-    index.all.style.opacity = 0.6;
-
-    // Here, we're setting a time out.
-    // After a set time, this function will run and the opacity will be reset.
-    // HOWEVER, because the timeout keeps being cleared above, it isn't until we 
-    // STOP scrolling that this function will actually run!
-    scroll = setTimeout(function () {
-        console.log(`we dun scrolled boss`);
-        index.all.style.opacity = "";
-    }, 66)
-})
-
-
-
-//========================KEYDOWN========================//
-// IF, and only if, the user holds down the mouseclick on the fun bus and presses space,
-// We will navigate to reveal.html
-document.addEventListener("keydown", event => {
-    if (event.key == " " && space) {
-        window.location.href = "reveal.html"
-    }
-})
-
-
-
-//========================LOAD========================//
-// On page load,
-// we have an alert!
-window.addEventListener("load", event => {
-    alert("We got the home page loaded boss");
-})
-
-
-
-//========================PREVENTDEFAULTS========================//
-index.nav.links.forEach(element => element.addEventListener("click", event => {
-    event.preventDefault();
-}));
+// function dragDrop(event) {
+//   dragged.style.position = 'absolute';
+//   dragged.style.top = event.clientY - shiftY + 'px';
+//   dragged.style.left = event.clientX - shiftX + 'px';
+//   console.log(event.clientX);
+//   console.log(event.clientY);
+//   console.log(`The image is dropped`)//couldn't figure out the drop
+// }
